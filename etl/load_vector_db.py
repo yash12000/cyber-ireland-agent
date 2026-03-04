@@ -1,25 +1,25 @@
 from langchain_community.vectorstores import Chroma
-from langchain_openai import OpenAIEmbeddings
-from dotenv import load_dotenv
-import os
-
-load_dotenv()
+from langchain_community.embeddings import HuggingFaceEmbeddings
 
 
 def create_vector_db(chunks):
+
+    print("Loading embedding model...")
+
+    embeddings = HuggingFaceEmbeddings(
+        model_name="sentence-transformers/all-MiniLM-L6-v2"
+    )
 
     texts = [c["content"] for c in chunks]
     metadata = [{"page": c["page"]} for c in chunks]
 
     vectordb = Chroma.from_texts(
         texts=texts,
-        embedding=OpenAIEmbeddings(
-            openai_api_key=os.getenv("OPENAI_API_KEY")
-        ),
+        embedding=embeddings,
         metadatas=metadata,
         persist_directory="db"
     )
 
     vectordb.persist()
 
-    return vectordb
+    print("Vector DB created successfully!")
