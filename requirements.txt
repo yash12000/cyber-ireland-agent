@@ -96,9 +96,9 @@ protobuf==6.33.5
 pulsar-client==3.10.0
 pybase64==1.4.3
 pycparser==3.0
-pydantic==2.6.4
+pydantic==1.10.13
 pydantic-settings==2.13.1
-pydantic_core==2.16.3
+pydantic_core==2.41.5
 Pygments==2.19.2
 pypdf==3.17.4
 pypdfium2==5.5.0
