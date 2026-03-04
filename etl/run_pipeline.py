@@ -3,7 +3,7 @@ from chunking import chunk_documents
 from load_vector_db import create_vector_db
 
 
-def run():
+def run_pipeline():
 
     print("Starting ETL pipeline...")
 
@@ -21,4 +21,4 @@ def run():
 
 
 if __name__ == "__main__":
-    run()
+    run_pipeline()
