@@ -1,5 +1,8 @@
 from fastapi import FastAPI
 from app.agent import create_agent
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = FastAPI()
 
@@ -7,13 +10,12 @@ agent = create_agent()
 
 
 @app.get("/")
-def home():
-
-    return {"message": "Cyber Ireland Agent Running"}
+def health():
+    return {"status": "Cyber Ireland Agent Running"}
 
 
 @app.post("/query")
-def query(question: str):
+def query_agent(question: str):
 
     response = agent.run(question)
 
