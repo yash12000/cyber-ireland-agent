@@ -7,11 +7,10 @@ retriever = get_retriever()
 @tool
 def retrieve_documents(query: str):
     """
-    Retrieve relevant document chunks from the Cyber Ireland report.
-    Returns the text and page number for citation.
+    Retrieve relevant document chunks from the vector database.
     """
 
-    docs = retriever.invoke(query)
+    docs = retriever.get_relevant_documents(query)
 
     results = []
 
@@ -25,10 +24,23 @@ def retrieve_documents(query: str):
 
 
 @tool
-def calculate_cagr(start: float, end: float, years: int):
+def calculate_cagr(input_str: str):
     """
-    Calculate compound annual growth rate (CAGR).
+    Calculate CAGR.
+
+    Input format:
+    start,end,years
+
+    Example:
+    7351,17000,8
     """
 
-    cagr = (end / start) ** (1 / years) - 1
-    return round(cagr * 100, 2)
+    try:
+        start, end, years = map(float, input_str.split(","))
+
+        cagr = (end / start) ** (1 / years) - 1
+
+        return f"CAGR: {round(cagr * 100, 2)}%"
+
+    except Exception as e:
+        return f"Error calculating CAGR: {str(e)}"
