@@ -1,18 +1,14 @@
-from .extract_pdf import extract_text
-from .chunking import chunk_documents
-from .load_vector_db import create_vector_db
+from etl.extract_pdf import extract_text
+from etl.chunking import chunk_documents
+from etl.load_vector_db import create_vector_db
 
+print("Extracting PDF...")
+pages = extract_text()
 
-def run_pipeline():
+print("Chunking text...")
+chunks = chunk_documents(pages)
 
-    pages = extract_text()
+print("Creating vector database...")
+create_vector_db(chunks)
 
-    chunks = chunk_documents(pages)
-
-    create_vector_db(chunks)
-
-    print("Pipeline completed successfully")
-
-
-if __name__ == "__main__":
-    run_pipeline()
+print("Pipeline completed.")
