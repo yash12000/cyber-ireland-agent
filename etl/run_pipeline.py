@@ -5,17 +5,16 @@ from etl.load_vector_db import create_vector_db
 
 def run_pipeline():
 
-    print("Step 1: Extracting text from PDF...")
+    print("Starting ETL pipeline...")
+
     pages = extract_text()
 
     print(f"Extracted {len(pages)} pages")
 
-    print("Step 2: Chunking documents...")
     chunks = chunk_documents(pages)
 
     print(f"Created {len(chunks)} chunks")
 
-    print("Step 3: Creating vector database...")
     create_vector_db(chunks)
 
     print("Vector database created successfully!")
