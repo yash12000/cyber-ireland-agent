@@ -1,16 +1,15 @@
-from langchain_community.vectorstores import Chroma
-from langchain_community.embeddings import HuggingFaceEmbeddings
+from dotenv import load_dotenv
+import os
+from langchain.vectorstores import Chroma
+from langchain.embeddings import OpenAIEmbeddings
 
+load_dotenv()
 
 def get_retriever():
 
-    embeddings = HuggingFaceEmbeddings(
-        model_name="sentence-transformers/all-MiniLM-L6-v2"
-    )
-
     vectordb = Chroma(
         persist_directory="db",
-        embedding_function=embeddings
+        embedding_function=OpenAIEmbeddings()
     )
 
     retriever = vectordb.as_retriever(

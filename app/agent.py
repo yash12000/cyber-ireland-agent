@@ -1,6 +1,9 @@
 from langchain.agents import initialize_agent
 from langchain_openai import ChatOpenAI
 from app.tools import retrieve_documents, calculate_cagr
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def create_agent():
@@ -16,8 +19,8 @@ def create_agent():
     ]
 
     agent = initialize_agent(
-        tools,
-        llm,
+        tools=tools,
+        llm=llm,
         agent="zero-shot-react-description",
         verbose=True
     )
