@@ -1,13 +1,12 @@
+from langchain.agents import initialize_agent
 from langchain_openai import ChatOpenAI
-from langchain.agents import create_tool_calling_agent, AgentExecutor
-from langchain_core.prompts import ChatPromptTemplate
 from app.tools import retrieve_documents, calculate_cagr
 
 
 def create_agent():
 
     llm = ChatOpenAI(
-        model="gpt-4o-mini",
+        model="gpt-4o",
         temperature=0
     )
 
@@ -16,24 +15,11 @@ def create_agent():
         calculate_cagr
     ]
 
-    prompt = ChatPromptTemplate.from_messages(
-        [
-            ("system", "You are a cybersecurity report analysis assistant."),
-            ("human", "{input}"),
-            ("placeholder", "{agent_scratchpad}")
-        ]
-    )
-
-    agent = create_tool_calling_agent(
-        llm,
+    agent = initialize_agent(
         tools,
-        prompt
-    )
-
-    agent_executor = AgentExecutor(
-        agent=agent,
-        tools=tools,
+        llm,
+        agent="zero-shot-react-description",
         verbose=True
     )
 
-    return agent_executor
+    return agent

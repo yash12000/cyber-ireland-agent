@@ -1,4 +1,4 @@
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 
 def chunk_documents(pages):
@@ -11,6 +11,9 @@ def chunk_documents(pages):
     chunks = []
 
     for page in pages:
+
+        if not page["text"]:
+            continue
 
         page_chunks = splitter.split_text(page["text"])
 
