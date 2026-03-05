@@ -1,12 +1,15 @@
 from app.retriever import get_retriever
 
+
 retriever = get_retriever()
 
-query = "How many cyber security jobs are there in Ireland?"
+query = "How many cyber security jobs are in Ireland?"
 
-docs = retriever.get_relevant_documents(query)
+docs = retriever.invoke(query)
 
-for i, doc in enumerate(docs):
-    print("\n--- Result", i+1, "---")
+print("Retrieved documents:\n")
+
+for doc in docs:
+    print("Page:", doc.metadata["page"])
     print(doc.page_content[:300])
-    print("Page:", doc.metadata)
+    print("------")
