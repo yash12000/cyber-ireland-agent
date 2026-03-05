@@ -1,4 +1,4 @@
-from langchain.tools import tool
+from langchain_core.tools import tool
 from app.retriever import get_retriever
 
 retriever = get_retriever()
@@ -6,17 +6,14 @@ retriever = get_retriever()
 
 @tool
 def retrieve_documents(query: str):
-    """
-    Retrieve relevant document chunks from the Cyber Ireland report.
-    """
 
-    docs = retriever.get_relevant_documents(query)
+    docs = retriever.invoke(query)
 
     results = []
 
     for doc in docs:
         results.append({
-            "content": doc.page_content,
+            "text": doc.page_content,
             "page": doc.metadata.get("page")
         })
 
@@ -25,9 +22,6 @@ def retrieve_documents(query: str):
 
 @tool
 def calculate_cagr(start: float, end: float, years: int):
-    """
-    Calculate Compound Annual Growth Rate.
-    """
 
     cagr = (end / start) ** (1 / years) - 1
 
