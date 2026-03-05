@@ -1,8 +1,5 @@
 from fastapi import FastAPI
 from app.agent import create_agent
-from dotenv import load_dotenv
-
-load_dotenv()
 
 app = FastAPI()
 
