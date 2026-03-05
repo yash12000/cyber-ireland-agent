@@ -14,9 +14,9 @@ def health():
 @app.post("/query")
 def query_agent(question: str):
 
-    response = agent.run(question)
+    response = agent.invoke({"input": question})
 
     return {
         "query": question,
-        "answer": response
+        "answer": response["output"]
     }
