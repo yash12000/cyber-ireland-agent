@@ -1,17 +1,15 @@
 from dotenv import load_dotenv
-import os
-
 load_dotenv()
 
 from langchain.agents import initialize_agent
-from langchain_openai import ChatOpenAI
+from langchain.chat_models import ChatOpenAI
 from app.tools import retrieve_documents, calculate_cagr
 
 
 def create_agent():
 
     llm = ChatOpenAI(
-        model="gpt-4o-mini",
+        model="gpt-4o",
         temperature=0
     )
 
