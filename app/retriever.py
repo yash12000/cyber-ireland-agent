@@ -4,13 +4,13 @@ from langchain_community.embeddings import HuggingFaceEmbeddings
 
 def get_retriever():
 
-    embedding = HuggingFaceEmbeddings(
+    embeddings = HuggingFaceEmbeddings(
         model_name="sentence-transformers/all-MiniLM-L6-v2"
     )
 
     vectordb = Chroma(
         persist_directory="db",
-        embedding_function=embedding
+        embedding_function=embeddings
     )
 
     retriever = vectordb.as_retriever(
