@@ -1,27 +1,27 @@
 from etl.extract_pdf import extract_text
+from etl.parse_tables import extract_tables
 from etl.chunking import chunk_documents
 from etl.load_vector_db import create_vector_db
 
 
 def run_pipeline():
 
-    print("Step 1: Extracting PDF text...")
-
+    print("Extracting PDF text...")
     pages = extract_text()
 
-    print(f"Extracted {len(pages)} pages")
+    print("Extracting tables...")
+    tables = extract_tables()
 
-    print("Step 2: Chunking documents...")
-
+    print("Chunking documents...")
     chunks = chunk_documents(pages)
 
-    print(f"Created {len(chunks)} chunks")
+    print("Creating vector database...")
+    vectordb = create_vector_db(chunks)
 
-    print("Step 3: Creating vector database...")
-
-    create_vector_db(chunks)
-
-    print("Vector database created successfully!")
+    print("Pipeline complete!")
+    print(f"Pages processed: {len(pages)}")
+    print(f"Tables extracted: {len(tables)}")
+    print(f"Chunks created: {len(chunks)}")
 
 
 if __name__ == "__main__":
