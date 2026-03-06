@@ -7,19 +7,19 @@ def create_agent():
 
     llm = ChatOpenAI(
         model="gpt-4o-mini",
-        temperature=0,
+        temperature=0
     )
 
     tools = [
         retrieve_documents,
-        calculate_cagr,
+        calculate_cagr
     ]
 
     agent = initialize_agent(
         tools,
         llm,
         agent="zero-shot-react-description",
-        verbose=True,
+        verbose=True
     )
 
     return agent
