@@ -12,9 +12,6 @@ def chunk_documents(pages):
 
     for page in pages:
 
-        if not page["text"]:
-            continue
-
         page_chunks = splitter.split_text(page["text"])
 
         for chunk in page_chunks:
