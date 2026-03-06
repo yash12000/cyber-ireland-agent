@@ -1,10 +1,10 @@
-from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Chroma
+from langchain_community.embeddings import HuggingFaceEmbeddings
 
 
 def create_vector_db(chunks):
 
-    embeddings = HuggingFaceEmbeddings(
+    embedding = HuggingFaceEmbeddings(
         model_name="sentence-transformers/all-MiniLM-L6-v2"
     )
 
@@ -13,9 +13,11 @@ def create_vector_db(chunks):
 
     vectordb = Chroma.from_texts(
         texts=texts,
-        embedding=embeddings,
+        embedding=embedding,
         metadatas=metadata,
         persist_directory="db"
     )
+
+    vectordb.persist()
 
     return vectordb
