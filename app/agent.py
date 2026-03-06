@@ -1,6 +1,10 @@
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
 from langchain.agents import initialize_agent
 from langchain_openai import ChatOpenAI
-
 from app.tools import retrieve_documents, calculate_cagr
 
 
