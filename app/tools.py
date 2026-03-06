@@ -5,27 +5,26 @@ retriever = get_retriever()
 
 
 @tool
-def retrieve_documents(query: str) -> str:
-    """
-    Retrieve relevant document chunks from the Cyber Ireland report.
-    """
+def retrieve_documents(query: str):
+    """Retrieve relevant document chunks from the Cyber Ireland report"""
 
     docs = retriever.invoke(query)
 
-    output = []
+    results = []
 
     for doc in docs:
-        page = doc.metadata.get("page", "unknown")
-        output.append(f"Page {page}: {doc.page_content}")
+        results.append({
+            "text": doc.page_content,
+            "page": doc.metadata.get("page")
+        })
 
-    return "\n\n".join(output)
+    return results
 
 
 @tool
-def calculate_cagr(start: float, end: float, years: int) -> float:
-    """
-    Calculate compound annual growth rate (CAGR)
-    """
+def calculate_cagr(start: float, end: float, years: int):
+    """Calculate compound annual growth rate"""
 
     cagr = (end / start) ** (1 / years) - 1
+
     return round(cagr * 100, 2)
