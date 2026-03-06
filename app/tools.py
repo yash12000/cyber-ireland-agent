@@ -6,13 +6,13 @@ retriever = get_retriever()
 
 @tool
 def retrieve_documents(query: str):
-    """Retrieve relevant document chunks from the Cyber Ireland report"""
 
     docs = retriever.invoke(query)
 
     results = []
 
     for doc in docs:
+
         results.append({
             "text": doc.page_content,
             "page": doc.metadata.get("page")
@@ -23,7 +23,6 @@ def retrieve_documents(query: str):
 
 @tool
 def calculate_cagr(start: float, end: float, years: int):
-    """Calculate compound annual growth rate"""
 
     cagr = (end / start) ** (1 / years) - 1
 
