@@ -2,10 +2,14 @@ from app.retriever import get_retriever
 
 retriever = get_retriever()
 
-query = "How many cyber security professionals are employed?"
+query = "How many cybersecurity jobs are reported in the sector?"
 
-docs = retriever.get_relevant_documents(query)
+docs = retriever.invoke(query)
 
-for doc in docs:
-    print("\nPAGE:", doc.metadata["page"])
-    print(doc.page_content[:500])
+print("\nTop Retrieved Documents:\n")
+
+for i, doc in enumerate(docs):
+
+    print(f"\nResult {i+1}")
+    print("Page:", doc.metadata.get("page"))
+    print("Text:", doc.page_content[:400])

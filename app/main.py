@@ -7,23 +7,18 @@ agent = create_agent()
 
 
 @app.get("/")
-def root():
-    return {"message": "Cyber Ireland Agent Running"}
+def health():
+    return {"status": "Cyber Ireland Agent Running"}
 
 
 @app.post("/query")
 def query_agent(question: str):
 
-    try:
-        response = agent.run(question)
+    result = agent.invoke({
+        "input": question
+    })
 
-        return {
-            "query": question,
-            "answer": response
-        }
-
-    except Exception as e:
-
-        return {
-            "error": str(e)
-        }
+    return {
+        "query": question,
+        "answer": result["output"]
+    }
