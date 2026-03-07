@@ -23,7 +23,7 @@ def retrieve_documents(query: str):
             }
         )
 
-    return results
+    return str(results)
 
 
 @tool

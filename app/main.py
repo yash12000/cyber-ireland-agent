@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
 from app.agent import create_agent
 
 app = FastAPI()
@@ -7,23 +6,24 @@ app = FastAPI()
 agent = create_agent()
 
 
-class QueryRequest(BaseModel):
-    question: str
-
-
 @app.get("/")
-def health():
-    return {"status": "Cyber Ireland Agent Running"}
+def root():
+    return {"message": "Cyber Ireland Agent Running"}
 
 
 @app.post("/query")
-def query_agent(request: QueryRequest):
+def query_agent(question: str):
 
-    response = agent.invoke(
-        {"input": request.question}
-    )
+    try:
+        response = agent.run(question)
 
-    return {
-        "query": request.question,
-        "answer": response["output"]
-    }
+        return {
+            "query": question,
+            "answer": response
+        }
+
+    except Exception as e:
+
+        return {
+            "error": str(e)
+        }
