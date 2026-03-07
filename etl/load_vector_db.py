@@ -20,4 +20,4 @@ def create_vector_db(chunks):
 
     vectordb.persist()
 
-    return vectordb
+    print("Vector database created successfully")
