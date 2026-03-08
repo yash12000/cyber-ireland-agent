@@ -1,17 +1,15 @@
-from dotenv import load_dotenv
-import os
-from langchain.agents import initialize_agent
-from langchain.chat_models import ChatOpenAI
+from langchain_openai import ChatOpenAI
+from langchain.agents import AgentExecutor, create_tool_calling_agent
+from langchain.prompts import ChatPromptTemplate
+
 from app.tools import retrieve_documents, calculate_cagr
 
-load_dotenv()
 
 def create_agent():
 
     llm = ChatOpenAI(
-        model="gpt-4o",
-        temperature=0,
-        openai_api_key=os.getenv("OPENAI_API_KEY")
+        model="gpt-4o-mini",
+        temperature=0
     )
 
     tools = [
@@ -19,11 +17,26 @@ def create_agent():
         calculate_cagr
     ]
 
-    agent = initialize_agent(
-        tools,
+    prompt = ChatPromptTemplate.from_messages(
+        [
+            ("system",
+             "You are an AI assistant that answers questions using retrieved documents. "
+             "Always provide citations including page numbers."),
+            ("human", "{input}"),
+            ("placeholder", "{agent_scratchpad}")
+        ]
+    )
+
+    agent = create_tool_calling_agent(
         llm,
-        agent="zero-shot-react-description",
+        tools,
+        prompt
+    )
+
+    agent_executor = AgentExecutor(
+        agent=agent,
+        tools=tools,
         verbose=True
     )
 
-    return agent
+    return agent_executor

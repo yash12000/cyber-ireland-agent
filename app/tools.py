@@ -6,10 +6,7 @@ retriever = get_retriever()
 
 @tool
 def retrieve_documents(query: str):
-    """
-    Retrieve relevant document chunks from the Cyber Ireland report.
-    Returns text content and page number for citation.
-    """
+    """Retrieve relevant document chunks"""
 
     docs = retriever.get_relevant_documents(query)
 
@@ -26,10 +23,7 @@ def retrieve_documents(query: str):
 
 @tool
 def calculate_cagr(start: float, end: float, years: int):
-    """
-    Calculate Compound Annual Growth Rate (CAGR).
-    """
+    """Calculate compound annual growth rate"""
 
     cagr = (end / start) ** (1 / years) - 1
-
     return round(cagr * 100, 2)

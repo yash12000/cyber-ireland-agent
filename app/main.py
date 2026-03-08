@@ -7,7 +7,7 @@ agent = create_agent()
 
 
 @app.get("/")
-def health():
+def home():
     return {"status": "Cyber Ireland Agent Running"}
 
 
